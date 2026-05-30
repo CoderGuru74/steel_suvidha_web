@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { 
   Building2, BookOpen, Layers, ClipboardList, Video, 
   Settings, Trash2, PlusCircle, ArrowUpRight, CheckCircle, 
-  ShieldCheck, Truck, BarChart3, ChevronRight, ChevronLeft, 
+  Clock, ShieldCheck, Truck, BarChart3, ChevronRight, ChevronLeft, 
   Download, HardHat, Factory, Sliders, FileText, UserCheck, 
-  Briefcase, Flame, Anchor, Layers3
+  Briefcase, Flame, Anchor, Layers3, Lock, Activity, Eye, EyeOff
 } from 'lucide-react';
 
 export default function App() {
@@ -14,6 +14,12 @@ export default function App() {
   // Interactive 3D Book Page Turning State Engine
   const [currentBookPage, setCurrentBookPage] = useState(0);
   
+  // 🔒 Security Isolation State Matrix
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [adminPassphrase, setAdminPassphrase] = useState('');
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [isPassVisible, setIsPassVisible] = useState(false);
+
   // Admin form state bindings
   const [newTitle, setNewTitle] = useState('');
   const [newCategory, setNewCategory] = useState('Market Trends');
@@ -21,8 +27,6 @@ export default function App() {
   const [newContent, setNewContent] = useState('');
 
   const API_URL = 'http://localhost:5000/api/blogs';
-
-  // Play Store URL
   const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.steelsuvidha.app";
 
   const fetchBlogs = async () => {
@@ -86,7 +90,17 @@ export default function App() {
     }
   };
 
-  // Flip-book page records matrix structure array map
+  const handleAdminAuthSubmit = (e) => {
+    e.preventDefault();
+    // Cryptographic token string passphrase verification block
+    if (adminPassphrase === "suvidha_admin_2026") {
+      setIsAdminAuthenticated(true);
+    } else {
+      alert("Security Violation: Invalid Cryptographic Access Key Token.");
+      setAdminPassphrase('');
+    }
+  };
+
   const bookPages = [
     {
       title: "Structural Catalog Overview",
@@ -161,6 +175,7 @@ export default function App() {
           />
         </button>
         
+        {/* PUBLIC CLEAN NAV: Tab link trigger for admin has been strictly purged */}
         <nav className="hidden lg:flex items-center gap-1 font-poppins text-xs font-semibold">
           {[
             { id: 'hero-section', label: 'Home' },
@@ -169,17 +184,25 @@ export default function App() {
             { id: 'services-section', label: 'Our Services' },
             { id: 'portal-section', label: 'Portal Showcase' },
             { id: 'media-section', label: 'Media Hub' },
-            { id: 'blog-section', label: 'Insights Blog' },
-            { id: 'admin-section', label: 'Admin Control', icon: <Settings size={12} className="inline mr-1" /> }
+            { id: 'blog-section', label: 'Insights Blog' }
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => scrollToSection(tab.id)}
               className="px-4 py-2.5 rounded transition-all duration-150 cursor-pointer text-slate-600 hover:bg-slate-100 hover:text-black"
             >
-              {tab.icon}{tab.label}
+              {tab.label}
             </button>
           ))}
+          
+          {/* Secret Hidden Dynamic Gateway Access Point */}
+          <button 
+            onClick={() => setShowAdminPanel(true)} 
+            className="w-9 h-9 ml-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-400 flex items-center justify-center hover:text-[#E23744] hover:bg-red-50 transition-colors cursor-pointer"
+            title="SS System Gateway Node"
+          >
+            <Lock size={13} />
+          </button>
         </nav>
       </header>
 
@@ -373,7 +396,7 @@ export default function App() {
         <div id="portal-section" className="max-w-5xl mx-auto px-8 py-16 font-poppins">
           <div className="border-l-4 border-[#2F8DC7] pl-4 mb-10">
             <p className="text-xs font-extrabold text-[#2F8DC7] tracking-widest uppercase">IMMERSIVE INTERACTION SHOWCASE</p>
-            <h3 className="text-3xl font-black font-lora text-gray-900 mt-0.5">Digital Platform Menu Book</h3>
+            <h3 className="text-3xl font-black text-gray-900 mt-0.5 font-lora">Digital Platform Menu Book</h3>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-12 items-center">
@@ -501,7 +524,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* SECTION 6: MULTI-MEDIA LOGISTICS HUB (CLEANED - REMOVED PROMPTED TARIFF BANNER BOX) */}
+        {/* SECTION 6: MULTI-MEDIA LOGISTICS HUB */}
         <div id="media-section" className="max-w-4xl mx-auto px-6 py-12 font-poppins">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {['Automated Rolling Mills', 'Structural Failure Diagnostics', 'Smarter Yards Loading', 'Client Delivery Handovers'].map((label, idx) => (
@@ -539,71 +562,136 @@ export default function App() {
           )}
         </div>
 
-        {/* SECTION 8: ADMINISTRATIVE CONTROL DESK */}
-        <div id="admin-section" className="max-w-6xl mx-auto px-6 py-16 font-poppins">
-          <div className="mb-8 border-b border-slate-300 pb-4">
-            <h2 className="text-2xl font-black font-lora text-gray-900">Central Control Platform</h2>
-            <p className="text-xs text-slate-500 mt-1">Authenticated system operations dashboard context framework.</p>
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-8 items-start">
-            <form onSubmit={handlePublishBlog} className="bg-white p-6 rounded border border-slate-300 shadow-xs lg:col-span-5 space-y-4">
-              <h3 className="font-bold text-sm text-gray-900 flex items-center gap-2 mb-2"><PlusCircle size={16} className="text-[#E23744]" />Publish Corporate Insight Node</h3>
+        {/* ─── ISOLATED/PROTECTED OPERATIONS GATEWAY MODAL VIEWPORT ─── */}
+        {showAdminPanel && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-fade-in font-poppins">
+            <div className="bg-white w-full max-w-5xl rounded-2xl border border-slate-200 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
               
-              <div>
-                <label className="text-[11px] font-bold uppercase text-slate-400 block mb-1">Insight Title</label>
-                <input type="text" value={newTitle} onChange={e => setNewTitle(e.target.value)} placeholder="e.g. Price Fluctuations Q2 2026" className="w-full text-xs p-3 border border-slate-300 rounded bg-[#F8F9FA] focus:outline-[#E23744]" required />
-              </div>
-              
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-[11px] font-bold uppercase text-slate-400 block mb-1">Category Scope</label>
-                  <select value={newCategory} onChange={e => setNewCategory(e.target.value)} className="w-full text-xs p-3 border border-slate-300 rounded bg-[#F8F9FA] focus:outline-[#E23744]">
-                    <option>Market Trends</option><option>Supply Chain</option><option>Technical Specs</option><option>Platform News</option>
-                  </select>
+              {/* Modal Top Verification Navigation Frame */}
+              <div className="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                <div className="flex items-center gap-2 text-slate-800">
+                  <Lock size={16} className={isAdminAuthenticated ? "text-emerald-500" : "text-[#E23744]"} />
+                  <h3 className="font-bold font-lora text-sm">
+                    {isAdminAuthenticated ? "Cluster Ledger Console Node: Active" : "System Cryptographic Gate Access Loop"}
+                  </h3>
                 </div>
-                <div>
-                  <label className="text-[11px] font-bold uppercase text-slate-400 block mb-1">Author Identity</label>
-                  <input type="text" value={newAuthor} onChange={e => setNewAuthor(e.target.value)} placeholder="e.g. shubham_raj" className="w-full text-xs p-3 border border-slate-300 rounded bg-[#F8F9FA] focus:outline-[#E23744]" required />
-                </div>
+                <button 
+                  onClick={() => { setShowAdminPanel(false); setIsAdminAuthenticated(false); setAdminPassphrase(''); }} 
+                  className="text-xs font-bold text-slate-400 hover:text-slate-900 cursor-pointer"
+                >
+                  Terminate Connection
+                </button>
               </div>
 
-              <div>
-                <label className="text-[11px] font-bold uppercase text-slate-400 block mb-1">Markdown Body Stream Content</label>
-                <textarea rows={5} value={newContent} onChange={e => setNewContent(e.target.value)} placeholder="Write technical logs here..." className="w-full text-xs p-3 border border-slate-300 rounded bg-[#F8F9FA] focus:outline-[#E23744] resize-none" required />
-              </div>
-
-              <button type="submit" className="w-full py-3 bg-[#0D1137] text-white text-xs font-bold rounded flex items-center justify-center gap-2 hover:bg-[#1A237E] transition-colors cursor-pointer">
-                Inject Node Record & Publish
-              </button>
-            </form>
-
-            <div className="bg-white p-6 rounded border border-slate-300 shadow-xs lg:col-span-7">
-              <h3 className="font-bold text-sm text-gray-900 flex items-center gap-2 mb-4"><Layers size={16} className="text-[#2F8DC7]" />Live Active Cluster Ledger Records</h3>
-              {blogs.length === 0 ? (
-                <p className="text-xs text-slate-400 text-center py-8">MongoDB record buffer empty.</p>
-              ) : (
-                <div className="space-y-3">
-                  {blogs.map((b) => (
-                    <div key={b._id} className="p-4 border border-slate-100 rounded flex items-center justify-between bg-[#F8F9FA]">
-                      <div className="max-w-[80%]">
-                        <h4 className="text-xs font-black text-gray-900 truncate font-lora">{b.title}</h4>
-                        <p className="text-[10px] text-slate-400 mt-0.5">ID: {b._id} • By {b.author}</p>
-                      </div>
-                      <button onClick={() => handleDeleteBlog(b._id)} className="p-2 text-gray-400 hover:text-[#E23744] hover:bg-red-50 rounded transition-colors cursor-pointer">
-                        <Trash2 size={15} />
+              {/* Secure Passphrase Gate Layer */}
+              {!isAdminAuthenticated ? (
+                <div className="p-8 flex flex-col items-center justify-center space-y-6 max-w-md mx-auto my-12">
+                  <div className="p-4 bg-red-50 text-[#E23744] rounded-full border border-red-100 shadow-inner">
+                    <Lock size={28} />
+                  </div>
+                  <div className="text-center space-y-1">
+                    <h4 className="font-bold text-sm text-slate-900 font-lora">Authentication Token Mandated</h4>
+                    <p className="text-xs text-slate-400">Provide the baseline administrative operational passcode loop.</p>
+                  </div>
+                  
+                  <form onSubmit={handleAdminAuthSubmit} className="w-full space-y-4">
+                    <div className="relative">
+                      <input 
+                        type={isPassVisible ? "text" : "password"} 
+                        value={adminPassphrase}
+                        onChange={(e) => setAdminPassphrase(e.target.value)}
+                        placeholder="Enter primary administrative passphrase..." 
+                        className="w-full text-xs p-3.5 pl-4 pr-10 border border-slate-200 rounded-xl bg-[#F8FAFC] font-mono tracking-wide focus:outline-hidden focus:border-[#E23744]"
+                        required
+                      />
+                      <button 
+                        type="button"
+                        onClick={() => setIsPassVisible(!isPassVisible)}
+                        className="absolute right-3.5 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                      >
+                        {isPassVisible ? <EyeOff size={15} /> : <Eye size={15} />}
                       </button>
                     </div>
-                  ))}
+                    <button 
+                      type="submit" 
+                      className="w-full py-3.5 bg-[#0D1137] text-white text-xs font-bold rounded-xl tracking-widest uppercase hover:bg-[#1A237E] transition-colors cursor-pointer shadow-md shadow-indigo-900/10"
+                    >
+                      Authenticate Node Key
+                    </button>
+                  </form>
+                </div>
+              ) : (
+                
+                /* Fully Authorized Internal Workspace Control Board */
+                <div className="p-6 overflow-y-auto flex-grow grid lg:grid-cols-12 gap-6 items-start">
+                  
+                  {/* Production Document Form Injection Module */}
+                  <form onSubmit={handlePublishBlog} className="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs lg:col-span-5 space-y-3.5">
+                    <h4 className="font-bold text-xs text-slate-900 flex items-center gap-1.5 border-b pb-2 mb-2">
+                      <PlusCircle size={14} className="text-[#E23744]" /> Inject Insight Document Node
+                    </h4>
+                    
+                    <div>
+                      <label className="text-[10px] font-bold uppercase text-slate-400 block mb-1">Document Title</label>
+                      <input type="text" value={newTitle} onChange={e => setNewTitle(e.target.value)} placeholder="e.g. Structural Price Fluctuations" className="w-full text-xs p-2.5 border border-slate-200 rounded-lg bg-[#F8FAFC] focus:outline-[#E23744]" required />
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-[10px] font-bold uppercase text-slate-400 block mb-1">Category Filter</label>
+                        <select value={newCategory} onChange={e => setNewCategory(e.target.value)} className="w-full text-xs p-2.5 border border-slate-200 rounded-lg bg-[#F8FAFC] focus:outline-[#E23744] font-semibold cursor-pointer">
+                          <option>Market Trends</option><option>Supply Chain</option><option>Technical Specs</option><option>Platform News</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-bold uppercase text-slate-400 block mb-1">Author Identity</label>
+                        <input type="text" value={newAuthor} onChange={e => setNewAuthor(e.target.value)} placeholder="e.g. shubham_raj" className="w-full text-xs p-2.5 border border-slate-200 rounded-lg bg-[#F8FAFC] focus:outline-[#E23744]" required />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-bold uppercase text-slate-400 block mb-1">Body Text Stream Content</label>
+                      <textarea rows={4} value={newContent} onChange={e => setNewContent(e.target.value)} placeholder="Write article content segments..." className="w-full text-xs p-2.5 border border-slate-200 rounded-lg bg-[#F8FAFC] focus:outline-[#E23744] resize-none" required />
+                    </div>
+
+                    <button type="submit" className="w-full py-3 bg-[#0D1137] text-white text-xs font-bold rounded-lg hover:bg-[#1A237E] transition-colors cursor-pointer tracking-wide uppercase">
+                      Commit to Remote Database
+                    </button>
+                  </form>
+
+                  {/* Operational Ledger Mutator List */}
+                  <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs lg:col-span-7 h-full flex flex-col max-h-[450px]">
+                    <h4 className="font-bold text-xs text-slate-900 border-b pb-2 mb-3">
+                      Live Active Database Node Log Stream
+                    </h4>
+                    {blogs.length === 0 ? (
+                      <p className="text-xs text-slate-400 text-center py-12 font-mono">No transaction documents verified within the MongoDB layout schema buffers.</p>
+                    ) : (
+                      <div className="space-y-2.5 overflow-y-auto pr-1 flex-grow">
+                        {blogs.map((b) => (
+                          <div key={b._id} className="p-3.5 border border-slate-100 rounded-lg flex items-center justify-between bg-[#F8FAFC]">
+                            <div className="max-w-[78%]">
+                              <h5 className="text-xs font-black text-slate-900 truncate font-lora">{b.title}</h5>
+                              <p className="text-[9px] font-mono text-slate-400 mt-0.5">UID: {b._id} • Node Owner: {b.author}</p>
+                            </div>
+                            <button onClick={() => handleDeleteBlog(b._id)} className="p-2 text-slate-400 hover:text-[#E23744] hover:bg-red-50 rounded-md transition-colors cursor-pointer">
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
                 </div>
               )}
             </div>
           </div>
-        </div>
+        )}
 
       </main>
 
-      {/* ─── CORPORATE COMPREHENSIVE FOOTER (WITH HIGH CONVERSION GOOGLE PLAY BADGE) ─── */}
+      {/* ─── CORPORATE COMPREHENSIVE FOOTER ─── */}
       <footer className="bg-[#000000] text-slate-400 px-8 py-12 border-t border-slate-800 text-xs font-poppins relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
@@ -619,7 +707,7 @@ export default function App() {
                 rel="noopener noreferrer" 
                 className="text-[#2F8DC7] font-bold underline underline-offset-4 hover:text-white transition-colors cursor-pointer"
               >
-                Pixelnode Agency
+                Pixelnode Agency 
               </a>
             </p>
           </div>
