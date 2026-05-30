@@ -4,8 +4,12 @@ import {
   Settings, Trash2, PlusCircle, ArrowUpRight, CheckCircle, 
   Clock, ShieldCheck, Truck, BarChart3, ChevronRight, ChevronLeft, 
   Download, HardHat, Factory, Sliders, FileText, UserCheck, 
-  Briefcase, Flame, Anchor, Layers3, Lock, Activity, Eye, EyeOff
+  Briefcase, Flame, Anchor, Layers3, Lock, Eye, EyeOff
 } from 'lucide-react';
+
+// Relative Static Asset Bundle Imports
+import websiteLogo from './assets/Website Logo.png';
+import appIcon from './assets/App Icon.png';
 
 export default function App() {
   const [blogs, setBlogs] = useState([]);
@@ -35,7 +39,7 @@ export default function App() {
       const data = await res.json();
       setBlogs(data);
     } catch (err) {
-      console.error("Error communicating with backend database API:", err);
+      console.warn("Backend API link offline. Running standalone catalog interface operations safely.");
     }
   };
 
@@ -92,7 +96,6 @@ export default function App() {
 
   const handleAdminAuthSubmit = (e) => {
     e.preventDefault();
-    // Cryptographic token string passphrase verification block
     if (adminPassphrase === "suvidha_admin_2026") {
       setIsAdminAuthenticated(true);
     } else {
@@ -166,7 +169,7 @@ export default function App() {
           className="flex items-center cursor-pointer transition-opacity hover:opacity-90 focus:outline-hidden"
         >
           <img 
-            src="/src/assets/Website Logo.png" 
+            src={websiteLogo} 
             alt="Steel Suvidha Logo" 
             className="h-11 w-auto object-contain" 
             onError={(e) => {
@@ -396,7 +399,7 @@ export default function App() {
         <div id="portal-section" className="max-w-5xl mx-auto px-8 py-16 font-poppins">
           <div className="border-l-4 border-[#2F8DC7] pl-4 mb-10">
             <p className="text-xs font-extrabold text-[#2F8DC7] tracking-widest uppercase">IMMERSIVE INTERACTION SHOWCASE</p>
-            <h3 className="text-3xl font-black text-gray-900 mt-0.5 font-lora">Digital Platform Menu Book</h3>
+            <h3 className="text-3xl font-black font-lora text-gray-900 mt-0.5">Digital Platform Menu Book</h3>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-12 items-center">
@@ -411,7 +414,7 @@ export default function App() {
                   
                   {/* APP ICON CORNER WATERMARK BACKGROUND EMBED */}
                   <img 
-                    src="/src/assets/App Icon.png" 
+                    src={appIcon} 
                     alt="" 
                     className="absolute bottom-2 left-2 h-14 w-auto object-contain opacity-10 select-none pointer-events-none z-0" 
                   />
@@ -438,7 +441,7 @@ export default function App() {
                   
                   {/* APP ICON CORNER WATERMARK BACKGROUND EMBED */}
                   <img 
-                    src="/src/assets/App Icon.png" 
+                    src={appIcon} 
                     alt="" 
                     className="absolute bottom-2 right-2 h-14 w-auto object-contain opacity-10 select-none pointer-events-none z-0" 
                   />
@@ -564,7 +567,7 @@ export default function App() {
 
         {/* ─── ISOLATED/PROTECTED OPERATIONS GATEWAY MODAL VIEWPORT ─── */}
         {showAdminPanel && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-fade-in font-poppins">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 font-poppins">
             <div className="bg-white w-full max-w-5xl rounded-2xl border border-slate-200 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
               
               {/* Modal Top Verification Navigation Frame */}
@@ -669,13 +672,13 @@ export default function App() {
                     ) : (
                       <div className="space-y-2.5 overflow-y-auto pr-1 flex-grow">
                         {blogs.map((b) => (
-                          <div key={b._id} className="p-3.5 border border-slate-100 rounded-lg flex items-center justify-between bg-[#F8FAFC]">
-                            <div className="max-w-[78%]">
-                              <h5 className="text-xs font-black text-slate-900 truncate font-lora">{b.title}</h5>
-                              <p className="text-[9px] font-mono text-slate-400 mt-0.5">UID: {b._id} • Node Owner: {b.author}</p>
+                          <div key={b._id} className="p-4 border border-slate-100 rounded-xl flex items-center justify-between bg-[#F8FAFC]">
+                            <div className="max-w-[80%]">
+                              <h4 className="text-xs font-black text-gray-900 truncate font-lora">{b.title}</h4>
+                              <p className="text-[10px] text-slate-400 mt-0.5">ID: {b._id} • By {b.author}</p>
                             </div>
-                            <button onClick={() => handleDeleteBlog(b._id)} className="p-2 text-slate-400 hover:text-[#E23744] hover:bg-red-50 rounded-md transition-colors cursor-pointer">
-                              <Trash2 size={14} />
+                            <button onClick={() => handleDeleteBlog(b._id)} className="p-2 text-gray-400 hover:text-[#E23744] hover:bg-red-50 rounded transition-colors cursor-pointer">
+                              <Trash2 size={15} />
                             </button>
                           </div>
                         ))}
@@ -707,7 +710,7 @@ export default function App() {
                 rel="noopener noreferrer" 
                 className="text-[#2F8DC7] font-bold underline underline-offset-4 hover:text-white transition-colors cursor-pointer"
               >
-                Pixelnode Agency 
+                Pixelnode Agency
               </a>
             </p>
           </div>
