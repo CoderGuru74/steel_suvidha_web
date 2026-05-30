@@ -241,7 +241,7 @@ export default function App() {
             
             <button 
               onClick={() => setShowAdminPanel(true)} 
-              className="w-9 h-9 ml-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-400 flex items-center justify-center hover:text-[#E23744] hover:bg-red-50 cursor-pointer"
+              className="w-9 h-9 ml-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-400 flex items-center justify-center hover:text-[#E23744] hover:bg-red-50 transition-colors cursor-pointer"
               title="Open Gateway Platform"
               aria-label="Secure Master Administrator Access Portal"
             >
@@ -541,7 +541,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* SECTION 6: OPERATIONS MEDIA REELS */}
+        {/* SECTION 6: OPERATIONS MULTI-MEDIA REELS */}
         <div id="media-section" className="max-w-4xl mx-auto px-6 py-12 font-poppins scroll-mt-28">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {['Automated Rolling Mills', 'Structural Failure Diagnostics', 'Smarter Yards Loading', 'Client Delivery Handovers'].map((label, idx) => (
@@ -650,8 +650,20 @@ export default function App() {
       <footer className="bg-[#000000] text-slate-400 px-8 py-12 border-t border-slate-800 text-xs font-poppins relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <p className="font-bold text-white text-sm font-lora">Steel Suvidha Platforms Ltd.</p>
+            {/* 🌟 BRAND NODE WITH INTEGRATED APP LOGO ASSET GRAPHIC 🌟 */}
+            <div className="flex items-center gap-3">
+              <img 
+                src={appIcon} 
+                alt="" 
+                width="32" 
+                height="32" 
+                className="h-8 w-8 object-contain shrink-0 select-none pointer-events-none" 
+              />
+              <p className="font-bold text-white text-sm font-lora">Steel Suvidha Platforms Ltd.</p>
+            </div>
             <p className="mt-1 text-slate-500">Corporate System Portal Interface Matrix • All rights reserved 2026.</p>
+            
+            {/* HYPERLINKED CLICKABLE MARK NODE */}
             <p className="mt-4 text-slate-600 text-[11px]">
               Developed and designed by{" "}
               <a 
@@ -665,6 +677,7 @@ export default function App() {
             </p>
           </div>
           
+          {/* HIGH CONVERSION PLAY STORE BADGE */}
           <div className="flex flex-col items-center md:items-end gap-2">
             <span className="text-[10px] text-slate-500 font-mono font-bold uppercase tracking-wider">OFFICIAL SYSTEM PLATFORM</span>
             <a 
