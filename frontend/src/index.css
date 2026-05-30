@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+:root {
+  font-family: 'Poppins', sans-serif;
+  background-color: #F8FAFC;
+  color: #263238;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lora', serif;
+}
+
+/* Ensure the HTML and Body let scroll snapping work perfectly */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
