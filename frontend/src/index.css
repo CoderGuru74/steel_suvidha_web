@@ -10,9 +10,51 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Lora', serif;
 }
 
-/* Ensure the HTML and Body let scroll snapping work perfectly */
+/* ─── BASE RESET FOR LAYOUT STRUCTURES ─── */
 html, body, #root {
   margin: 0;
   padding: 0;
   height: 100%;
+  width: 100%;
+}
+
+/* ─── HARDWARE-ACCELERATED LIVE TICKER MARQUEE ─── */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+  will-change: transform;
+}
+
+/* Pause scroll interaction loop seamlessly on hover state */
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ─── ULTRA-CLEAN CUSTOM SCROLLBAR LAYOUT ─── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
 }
