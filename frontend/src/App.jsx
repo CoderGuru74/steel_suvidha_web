@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { 
   Building2, BookOpen, Layers, ClipboardList, Video, 
   Settings, Trash2, PlusCircle, ArrowUpRight, CheckCircle, 
-  Clock, ShieldCheck, Truck, BarChart3, ChevronRight,
-  HardHat, Factory, Sliders, FileText, UserCheck, Briefcase,
-  Flame, Anchor, Layers3
+  ShieldCheck, Truck, BarChart3, ChevronRight, ChevronLeft, 
+  Download, HardHat, Factory, Sliders, FileText, UserCheck, 
+  Briefcase, Flame, Anchor, Layers3
 } from 'lucide-react';
 
 export default function App() {
   const [blogs, setBlogs] = useState([]);
   const [orderFilter, setOrderFilter] = useState('All');
+  
+  // Interactive 3D Book Page Turning State Engine
+  const [currentBookPage, setCurrentBookPage] = useState(0);
   
   // Admin form state bindings
   const [newTitle, setNewTitle] = useState('');
@@ -18,6 +21,9 @@ export default function App() {
   const [newContent, setNewContent] = useState('');
 
   const API_URL = 'http://localhost:5000/api/blogs';
+
+  // Play Store URL
+  const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.steelsuvidha.app";
 
   const fetchBlogs = async () => {
     try {
@@ -78,6 +84,42 @@ export default function App() {
         behavior: 'smooth'
       });
     }
+  };
+
+  // Flip-book page records matrix structure array map
+  const bookPages = [
+    {
+      title: "Structural Catalog Overview",
+      subtitle: "Welcome to the Digital Material Menu",
+      desc: "Turn the pages using the navigation nodes below to explore architectural variables, baseline steel dimensions, and structural specifications available for real-time secure procurement.",
+      details: ["Page 1: Primary Rebar Grids", "Page 2: Structural Framing Angles", "Page 3: Commercial Iron Flats", "Page 4: Heavy Logistics Elements"]
+    },
+    {
+      title: "Thermo-Mechanically Treated Bars",
+      subtitle: "High-Tensile Foundation Grids",
+      desc: "Mill-certified reinforcing elements engineered explicitly to manage intense high-seismic configurations and architectural concrete framing structures.",
+      details: ["Available Sizes: 6mm, 8mm, 10mm, 12mm", "Heavy Grids: 16mm, 20mm, 25mm, 32mm", "Structural Standards: Fe 550D / Fe 600 CRS", "Mill Compliance: TATA Tiscon, JSW, SAIL, Jindal"]
+    },
+    {
+      title: "L-Angles & Structural Iron Flats",
+      subtitle: "Framing Trusses & Platform Supports",
+      desc: "Comprehensive structural sections manufactured precisely down to equal and unequal L-profiles and flat cross-section plating matrix specifications.",
+      details: ["Angles Dimension Map: A 20×3 up to A 75×10", "Flats Plating Scope: F 20×3 up to F 100×12", "Surface Finishes: Mild Steel (Black), Galvanised", "Yards Supply Nodes: Patna Iron, Kamdhenu, JKSPL"]
+    },
+    {
+      title: "Heavy Sections & Roofing Profiles",
+      subtitle: "Warehouse Joists & Coated Shielding Plates",
+      desc: "ISMC channel bars, structural ISMB load-bearing joists, and external weather-resistant color profile roofing sheet infrastructures.",
+      details: ["ISMC Section Channels: 70×40 to 250×75 Profiles", "ISMB Structural Joists: ISMB 100 to ISMB 400 Arrays", "GC Corrugated Sheets: 0.15mm to 0.80mm Thickness", "Coated Color Profiles: Tata Durashine, JSW Pragati+"]
+    }
+  ];
+
+  const nextBookPage = () => {
+    if (currentBookPage < bookPages.length - 1) setCurrentBookPage(currentBookPage + 1);
+  };
+
+  const prevBookPage = () => {
+    if (currentBookPage > 0) setCurrentBookPage(currentBookPage - 1);
   };
 
   const mockOrders = [
@@ -192,7 +234,7 @@ export default function App() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            {/* 1. TMT Card */}
+            {/* TMT Card */}
             <div className="bg-white p-6 border border-slate-300 rounded shadow-xs flex flex-col justify-between">
               <div>
                 <h4 className="font-bold text-base text-slate-900 flex items-center gap-2 border-b pb-2 mb-3"><Flame size={18} className="text-[#E23744]" /> Steel TMT Bars</h4>
@@ -204,7 +246,7 @@ export default function App() {
               <div className="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-400 font-mono">Variables: Weight per length / Rate per kg / Rate Difference</div>
             </div>
 
-            {/* 2. Angles Card */}
+            {/* Angles Card */}
             <div className="bg-white p-6 border border-slate-300 rounded shadow-xs flex flex-col justify-between">
               <div>
                 <h4 className="font-bold text-base text-slate-900 flex items-center gap-2 border-b pb-2 mb-3"><Layers size={18} className="text-[#2F8DC7]" /> Structural Angles</h4>
@@ -218,7 +260,7 @@ export default function App() {
               <div className="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-400 font-mono">Variables: Weight per length of 6 mtr / Qty in Lengths</div>
             </div>
 
-            {/* 3. Flats Card */}
+            {/* Flats Card */}
             <div className="bg-white p-6 border border-slate-300 rounded shadow-xs flex flex-col justify-between">
               <div>
                 <h4 className="font-bold text-base text-slate-900 flex items-center gap-2 border-b pb-2 mb-3"><Layers3 size={18} className="text-[#2F8DC7]" /> Commercial Flats</h4>
@@ -230,7 +272,7 @@ export default function App() {
               <div className="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-400 font-mono">Variables: MS, GI / Weight per length of 6 mtr</div>
             </div>
 
-            {/* 4. Square & Round Bars */}
+            {/* Square & Round Bars */}
             <div className="bg-white p-6 border border-slate-300 rounded shadow-xs flex flex-col justify-between">
               <div>
                 <h4 className="font-bold text-base text-slate-900 flex items-center gap-2 border-b pb-2 mb-3"><Anchor size={18} className="text-slate-700" /> Square & Round Bars</h4>
@@ -242,10 +284,10 @@ export default function App() {
               <div className="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-400 font-mono">Brands: Patna Iron, Kamdhenu, JKSPL, Sel Tiger, SAIL</div>
             </div>
 
-            {/* 5. Heavy Channels & ISMB Joists */}
+            {/* Heavy Channels & ISMB Joists */}
             <div className="bg-white p-6 border border-slate-300 rounded shadow-xs flex flex-col justify-between">
               <div>
-                <h4 className="font-bold text-base text-slate-900 flex items-center gap-2 border-b pb-2 mb-3"><Factory size={18} className="text-slate-800" /> Channels & Joists (ISMB)</h4>
+                <h4 className="font-bold text-base text-slate-800 flex items-center gap-2 border-b pb-2 mb-3"><Factory size={18} className="text-slate-800" /> Channels & Joists (ISMB)</h4>
                 <p className="text-xs text-slate-400 mb-1 font-bold">ISMC CHANNELS:</p>
                 <p className="text-[11px] font-mono text-slate-700 mb-2 truncate">70×40, 75×40 (ULC/LC/MC/H), 100×50 (LC/MC/H), 125×65, 150×75, 200×75, 250×75</p>
                 <p className="text-xs text-slate-400 mb-1 font-bold">ISMB JOISTS:</p>
@@ -254,7 +296,7 @@ export default function App() {
               <div className="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-400 font-mono">Z-Angle (L/H) • Gate Channels: 13 ft to 18 ft</div>
             </div>
 
-            {/* 6. Plates & Industrial Sheets */}
+            {/* Plates & Industrial Sheets */}
             <div className="bg-white p-6 border border-slate-300 rounded shadow-xs flex flex-col justify-between">
               <div>
                 <h4 className="font-bold text-base text-slate-900 flex items-center gap-2 border-b pb-2 mb-3"><ClipboardList size={18} className="text-amber-600" /> Plates & Roofing Sheets</h4>
@@ -327,55 +369,140 @@ export default function App() {
           </div>
         </div>
 
-        {/* SECTION 5: INTERACTIVE CLIENT PORTAL BOOK */}
-        <div id="portal-section" className="max-w-4xl mx-auto px-6 py-12 font-poppins">
-          <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-            <div>
-              <h2 className="text-2xl font-black font-lora">Interactive Order Book</h2>
-              <p className="text-xs text-gray-500">Live platform telemetry simulator module.</p>
-            </div>
-            <div className="flex gap-2 bg-slate-200 p-1 rounded text-xs font-bold border border-slate-300">
-              {['All', 'Pending', 'Processing', 'Completed'].map((f) => (
-                <button key={f} onClick={() => setOrderFilter(f)} className={`px-3 py-1.5 rounded cursor-pointer ${orderFilter === f ? 'bg-[#0D1137] text-white shadow-xs' : 'text-slate-600 hover:bg-slate-300'}`}>
-                  {f}
-                </button>
-              ))}
-            </div>
+        {/* SECTION 5: INTERACTIVE FLIP-BOOK WITH WATERMARK BACKGROUND BINDING */}
+        <div id="portal-section" className="max-w-5xl mx-auto px-8 py-16 font-poppins">
+          <div className="border-l-4 border-[#2F8DC7] pl-4 mb-10">
+            <p className="text-xs font-extrabold text-[#2F8DC7] tracking-widest uppercase">IMMERSIVE INTERACTION SHOWCASE</p>
+            <h3 className="text-3xl font-black font-lora text-gray-900 mt-0.5">Digital Platform Menu Book</h3>
           </div>
-          
-          <div className="space-y-4">
-            {mockOrders.filter(o => orderFilter === 'All' || o.status === orderFilter).map((order) => (
-              <div key={order.id} className="bg-white p-5 border border-slate-300 rounded flex items-center justify-between shadow-xs">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-slate-50 rounded border border-slate-200 text-slate-600"><ClipboardList size={20} /></div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-black text-slate-900">{order.item}</span>
-                      <span className="text-[10px] font-mono font-bold bg-slate-100 text-slate-500 px-1.5 py-0.5 border border-slate-200 rounded">{order.id}</span>
-                    </div>
-                    <p className="text-xs text-slate-400 mt-0.5">{order.client} • Volume: {order.qty}</p>
+
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            {/* 3D Animated Flipbook Engine Panel */}
+            <div className="lg:col-span-7 flex flex-col items-center">
+              <div className="w-full max-w-xl aspect-[16/10] bg-slate-300 rounded-xl p-2 shadow-2xl relative bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400 border border-slate-400/60 flex">
+                
+                <div className="absolute inset-y-0 left-1/2 w-4 bg-gradient-to-r from-black/20 via-black/5 to-transparent z-20 transform -translate-x-1/2" />
+
+                {/* LEFT PAGE CONTAINER WITH WATERMARK GRAPHIC NODE */}
+                <div className="w-1/2 h-full bg-[#FCFBF7] rounded-l p-4 flex flex-col justify-between border-r border-slate-300/40 shadow-inner relative overflow-hidden">
+                  
+                  {/* APP ICON CORNER WATERMARK BACKGROUND EMBED */}
+                  <img 
+                    src="/src/assets/App Icon.png" 
+                    alt="" 
+                    className="absolute bottom-2 left-2 h-14 w-auto object-contain opacity-10 select-none pointer-events-none z-0" 
+                  />
+
+                  <div className="space-y-2 relative z-10">
+                    <span className="text-[9px] bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-mono font-bold">
+                      SEC: 0{currentBookPage + 1}
+                    </span>
+                    <h4 className="text-sm font-bold font-lora text-slate-900 leading-tight">
+                      {bookPages[currentBookPage].title}
+                    </h4>
+                    <p className="text-[10px] text-[#2F8DC7] font-bold">
+                      {bookPages[currentBookPage].subtitle}
+                    </p>
+                    <p className="text-[10px] text-slate-500 leading-relaxed pt-1">
+                      {bookPages[currentBookPage].desc}
+                    </p>
+                  </div>
+                  <span className="text-[9px] text-slate-400 font-mono relative z-10">Page {currentBookPage * 2 + 1}</span>
+                </div>
+
+                {/* RIGHT PAGE CONTAINER WITH WATERMARK GRAPHIC NODE */}
+                <div className="w-1/2 h-full bg-[#FCFBF7] rounded-r p-4 flex flex-col justify-between shadow-inner relative overflow-hidden">
+                  
+                  {/* APP ICON CORNER WATERMARK BACKGROUND EMBED */}
+                  <img 
+                    src="/src/assets/App Icon.png" 
+                    alt="" 
+                    className="absolute bottom-2 right-2 h-14 w-auto object-contain opacity-10 select-none pointer-events-none z-0" 
+                  />
+
+                  <div className="space-y-2 relative z-10">
+                    <span className="text-[9px] text-slate-400 uppercase font-bold tracking-wider block border-b pb-1">
+                      Inventory Index
+                    </span>
+                    <ul className="space-y-1.5 pt-1">
+                      {bookPages[currentBookPage].details.map((item, idx) => (
+                        <li key={idx} className="text-[10px] text-slate-700 font-semibold flex items-center gap-1.5">
+                          <span className="w-1 h-1 bg-[#E23744] rounded-full"></span> {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="flex justify-between items-center relative z-10">
+                    <span className="text-[9px] text-slate-400 font-mono">Page {currentBookPage * 2 + 2}</span>
+                    <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest font-mono">Suvidha Grid</span>
                   </div>
                 </div>
-                <span className={`text-[10px] font-extrabold uppercase px-2.5 py-1 rounded border ${order.status === 'Completed' ? 'bg-green-50 text-green-600 border-green-200' : order.status === 'Processing' ? 'bg-blue-50 text-blue-600 border-blue-200' : 'bg-amber-50 text-amber-600 border-amber-200'}`}>
-                  {order.status}
-                </span>
               </div>
-            ))}
+
+              {/* Book Turning Navigation Control Deck */}
+              <div className="flex items-center gap-4 mt-6 text-xs font-bold">
+                <button 
+                  onClick={prevBookPage} 
+                  disabled={currentBookPage === 0}
+                  className="p-2 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors shadow-2xs flex items-center gap-1"
+                >
+                  <ChevronLeft size={14} /> Flip Back
+                </button>
+                <span className="text-slate-500 text-xs font-mono">
+                  Document {currentBookPage + 1} of {bookPages.length}
+                </span>
+                <button 
+                  onClick={nextBookPage} 
+                  disabled={currentBookPage === bookPages.length - 1}
+                  className="p-2 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors shadow-2xs flex items-center gap-1"
+                >
+                  Flip Forward <ChevronRight size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* Deep Marketplace Interaction Direct Router Links */}
+            <div className="lg:col-span-5 bg-gradient-to-br from-[#0D1137] to-slate-900 text-white p-8 rounded-2xl border-l-4 border-[#E23744] shadow-xl space-y-6">
+              <div>
+                <span className="text-[9px] font-mono tracking-widest font-extrabold uppercase bg-[#E23744] text-white px-2 py-0.5 rounded">
+                  MOBILE CONVERGENCE NODE
+                </span>
+                <h4 className="text-2xl font-bold font-lora tracking-wide text-white mt-4">
+                  Deploy Orders Directly via Android
+                </h4>
+                <p className="text-xs text-slate-300 mt-2 leading-relaxed font-poppins">
+                  Ready to calculate weights and submit procurement contracts? Tap below to initialize our automated logistics software hub directly via the official Android deployment ecosystem marketplace app path.
+                </p>
+              </div>
+
+              <a 
+                href={PLAY_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-full py-4 bg-[#E23744] text-white text-xs font-bold rounded-xl items-center justify-center gap-2 hover:bg-[#c62828] transition-all transform hover:-translate-y-0.5 shadow-md shadow-red-500/10 tracking-widest uppercase font-poppins"
+              >
+                <Download size={16} /> INITIALIZE ORDER IN APP <ArrowUpRight size={14} />
+              </a>
+
+              <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-2">
+                <span className="text-[10px] text-slate-400 font-mono font-bold tracking-wider uppercase block">
+                  Simulated Active Tonnage Ledger
+                </span>
+                <div className="space-y-1.5 max-h-[110px] overflow-y-auto pr-1">
+                  {mockOrders.map((order) => (
+                    <div key={order.id} className="flex justify-between items-center text-[10px] bg-black/20 p-2 rounded border border-white/5">
+                      <span className="font-mono text-slate-300">{order.id} • {order.item}</span>
+                      <span className="text-[#FF9100] font-bold">{order.qty}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* SECTION 6: MULTI-MEDIA LOGISTICS HUB */}
+        {/* SECTION 6: MULTI-MEDIA LOGISTICS HUB (CLEANED - REMOVED PROMPTED TARIFF BANNER BOX) */}
         <div id="media-section" className="max-w-4xl mx-auto px-6 py-12 font-poppins">
-          <div className="bg-amber-50 border border-amber-300 rounded p-6 flex gap-4 items-start mb-12">
-            <Clock className="text-[#FF9100] shrink-0 mt-0.5" size={20} />
-            <div>
-              <h4 className="text-sm font-bold text-amber-900">On-Site Dispatch Videography Framework Clause</h4>
-              <p className="text-xs text-amber-700 mt-1 leading-relaxed">
-                For multi-media dispatch capturing sessions located beyond a 10 km radius from corporate regional hubs, an additional production logistics tariff of ₹500 per media node specialist applies for system file record updates.
-              </p>
-            </div>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {['Automated Rolling Mills', 'Structural Failure Diagnostics', 'Smarter Yards Loading', 'Client Delivery Handovers'].map((label, idx) => (
               <div key={idx} className="bg-white rounded border border-slate-300 overflow-hidden shadow-xs group cursor-pointer">
@@ -390,7 +517,7 @@ export default function App() {
         </div>
 
         {/* SECTION 7: PUBLIC BLOG INSIGHTS FEED */}
-        <div id="blog-section" className="max-w-4xl mx-auto px-6 py-12">
+        <div id="blog-section" className="max-w-4xl mx-auto px-6 py-16">
           <h2 className="text-3xl font-black text-center mb-12 text-[#000000] font-lora">Corporate Intel & Insights Ledger</h2>
           {blogs.length === 0 ? (
             <div className="text-center text-slate-400 py-12 font-poppins text-xs border border-dashed border-slate-300 bg-white rounded">
@@ -413,7 +540,7 @@ export default function App() {
         </div>
 
         {/* SECTION 8: ADMINISTRATIVE CONTROL DESK */}
-        <div id="admin-section" className="max-w-6xl mx-auto px-6 py-12 font-poppins">
+        <div id="admin-section" className="max-w-6xl mx-auto px-6 py-16 font-poppins">
           <div className="mb-8 border-b border-slate-300 pb-4">
             <h2 className="text-2xl font-black font-lora text-gray-900">Central Control Platform</h2>
             <p className="text-xs text-slate-500 mt-1">Authenticated system operations dashboard context framework.</p>
@@ -476,17 +603,46 @@ export default function App() {
 
       </main>
 
-      {/* ─── FOOTER ─── */}
+      {/* ─── CORPORATE COMPREHENSIVE FOOTER (WITH HIGH CONVERSION GOOGLE PLAY BADGE) ─── */}
       <footer className="bg-[#000000] text-slate-400 px-8 py-12 border-t border-slate-800 text-xs font-poppins relative z-10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
             <p className="font-bold text-white text-sm font-lora">Steel Suvidha Platforms Ltd.</p>
             <p className="mt-1 text-slate-500">Corporate System Portal Interface Matrix • All rights reserved 2026.</p>
+            
+            {/* HYPERLINKED CLICKABLE DIGITAL AGENCY MARK NODE */}
+            <p className="mt-4 text-slate-600 text-[11px]">
+              Developed and designed by{" "}
+              <a 
+                href="https://pixelnode-agency.vercel.app/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-[#2F8DC7] font-bold underline underline-offset-4 hover:text-white transition-colors cursor-pointer"
+              >
+                Pixelnode Agency
+              </a>
+            </p>
           </div>
-          <div className="flex gap-4 text-slate-500 items-center">
-            <span>Powered by Pixelnode Agency </span>
-            <span>•</span>
-            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-white transition-colors cursor-pointer">Back to Top</button>
+          
+          {/* HIGH CONVERSION PLAY STORE EXTERNAL VECTOR SYSTEM BADGE */}
+          <div className="flex flex-col items-center md:items-end gap-2">
+            <span className="text-[10px] text-slate-500 font-mono font-bold uppercase tracking-wider">
+              OFFICIAL SYSTEM PLATFORM
+            </span>
+            <a 
+              href={PLAY_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex bg-slate-900 border border-slate-700 hover:border-slate-500 rounded-lg px-4 py-2 items-center gap-3 transition-colors shadow-lg group"
+            >
+              <svg className="w-5 h-5 text-slate-300 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3.609 2.083c-.157.172-.25.438-.25.772v18.289c0 .334.093.6.25.772l.061.056 10.334-10.334v-.276L3.67 2.027l-.061.056zm14.316 10.158l3.66-2.09c1.026-.586 1.026-1.543 0-2.13l-3.66-2.09-3.957 3.957 3.957 3.953zm-4.321-4.317l-3.232-3.232L3.899 2.196c.237-.061.548-.035.918.175l11.517 6.577-2.962 2.962zm0 4.156l2.962 2.962L4.817 21.63c-.37.21-.681.236-.918.175l6.471-6.471 3.232-3.232z"/>
+              </svg>
+              <div className="text-left">
+                <p className="text-[9px] text-slate-400 uppercase tracking-tight leading-none">GET IT ON</p>
+                <p className="text-xs text-white font-bold tracking-wide mt-0.5 leading-none">Google Play</p>
+              </div>
+            </a>
           </div>
         </div>
       </footer>
