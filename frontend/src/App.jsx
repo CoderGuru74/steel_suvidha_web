@@ -544,7 +544,7 @@ export default function App() {
               <div className="space-y-4 my-8 text-xs">
                 <div className="flex items-center gap-3 text-slate-300">
                   <div className="p-2.5 bg-white/10 rounded-lg text-[#E23744]"><Phone size={16} /></div>
-                  <div><p className="text-[10px] text-slate-400 uppercase font-bold">Sales Hotline</p><p className="font-bold text-white">+91 94310 00000</p></div>
+                  <div><p className="text-[10px] text-slate-400 uppercase font-bold">Sales Hotline</p><p className="font-bold text-white">+91 98018 46515</p></div>
                 </div>
                 <div className="flex items-center gap-3 text-slate-300">
                   <div className="p-2.5 bg-white/10 rounded-lg text-[#2F8DC7]"><Mail size={16} /></div>
