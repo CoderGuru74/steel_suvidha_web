@@ -377,6 +377,22 @@ export default function App() {
           </button>
         </header>
 
+        {/* MOBILE DROPDOWN CONTAINER */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-4 flex flex-col gap-2 shadow-xl animate-in slide-in-from-top-2 duration-200">
+            {menuNavigationItems.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => scrollToSection(tab.id)}
+                className="text-left px-4 py-3 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-[#E23744] transition-colors cursor-pointer flex items-center justify-between"
+              >
+                <span>{tab.label}</span>
+                <ChevronRight size={14} className="text-slate-400" />
+              </button>
+            ))}
+          </div>
+        )}
+
         <div className="w-full bg-[#0D1137] text-white overflow-hidden py-2.5 border-b border-slate-900 select-none z-40">
           <div className="relative w-full flex items-center">
             <div className="absolute left-0 top-0 bottom-0 bg-[#E23744] text-white px-4 flex items-center z-50 font-black tracking-wider text-[10px] uppercase shadow-md">
