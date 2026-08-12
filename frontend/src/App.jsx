@@ -340,13 +340,17 @@ export default function App() {
       }} />
 
       <div className="sticky top-0 z-50 flex flex-col w-full shadow-xs">
-        <header className="bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-8 py-4 flex items-center justify-between">
+        <header className="bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-8 py-3 flex items-center justify-between">
           <button 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-            className="flex items-center cursor-pointer transition-opacity hover:opacity-90"
+            className="flex items-center cursor-pointer transition-opacity hover:opacity-90 py-1"
             aria-label="Steel Suvidha Home"
           >
-            <img src={websiteLogo} alt="Steel Suvidha" width="176" height="44" className="h-11 w-auto object-contain" />
+            <img 
+              src={websiteLogo} 
+              alt="Steel Suvidha" 
+              className="h-14 sm:h-16 w-auto object-contain max-h-16" 
+            />
           </button>
           
           <nav className="hidden lg:flex items-center gap-1 text-xs font-semibold">
@@ -376,6 +380,22 @@ export default function App() {
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </header>
+
+        {/* MOBILE DROPDOWN CONTAINER */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-4 flex flex-col gap-2 shadow-xl animate-in slide-in-from-top-2 duration-200">
+            {menuNavigationItems.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => scrollToSection(tab.id)}
+                className="text-left px-4 py-3 rounded-lg text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-[#E23744] transition-colors cursor-pointer flex items-center justify-between"
+              >
+                <span>{tab.label}</span>
+                <ChevronRight size={14} className="text-slate-400" />
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="w-full bg-[#0D1137] text-white overflow-hidden py-2.5 border-b border-slate-900 select-none z-40">
           <div className="relative w-full flex items-center">
@@ -544,7 +564,7 @@ export default function App() {
               <div className="space-y-4 my-8 text-xs">
                 <div className="flex items-center gap-3 text-slate-300">
                   <div className="p-2.5 bg-white/10 rounded-lg text-[#E23744]"><Phone size={16} /></div>
-                  <div><p className="text-[10px] text-slate-400 uppercase font-bold">Sales Hotline</p><p className="font-bold text-white">+91 94310 00000</p></div>
+                  <div><p className="text-[10px] text-slate-400 uppercase font-bold">Sales Hotline</p><p className="font-bold text-white">+91 98018 46515</p></div>
                 </div>
                 <div className="flex items-center gap-3 text-slate-300">
                   <div className="p-2.5 bg-white/10 rounded-lg text-[#2F8DC7]"><Mail size={16} /></div>
