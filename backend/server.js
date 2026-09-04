@@ -40,10 +40,8 @@ const defaultPrices = [
 ];
 
 const defaultVideos = [
-  { title: 'Automated Rolling Mills', subtitle: 'Verified Infrastructure Ledger Node Log', videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', duration: '02:45' },
-  { title: 'Structural Failure Diagnostics', subtitle: 'Verified Infrastructure Ledger Node Log', videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', duration: '03:12' },
-  { title: 'Smarter Yards Loading', subtitle: 'Verified Infrastructure Ledger Node Log', videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', duration: '01:50' },
-  { title: 'Client Delivery Handovers', subtitle: 'Verified Infrastructure Ledger Node Log', videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', duration: '04:10' }
+  { title: 'Automated Rolling Mills', subtitle: 'Verified Infrastructure Ledger Node Log', videoUrl: 'https://www.youtube.com/embed/8-S_OaJ5s28', duration: '05:12' },
+  { title: 'Structural Failure Diagnostics', subtitle: 'Verified Infrastructure Ledger Node Log', videoUrl: 'https://www.youtube.com/embed/S_8qM7u-v0U', duration: '03:45' }
 ];
 
 // Seed Function to Populate MongoDB Collections
@@ -63,14 +61,19 @@ async function seedDatabase() {
       console.log('📌 Default video gallery seeded into MongoDB.');
     }
 
-    // C. Create / Update Admin User in MongoDB
-    const hashedPassword = await bcrypt.hash('suvidha_admin_2026', 10);
+    // C. Create / Update Secure Admin User in MongoDB
+    const adminUser = process.env.ADMIN_USERNAME || 'admin';
+    const adminPass = process.env.ADMIN_PASSWORD || 'suvidha_admin_2026';
+    const hashedPassword = await bcrypt.hash(adminPass, 10);
+
     await User.findOneAndUpdate(
-      { username: 'admin' },
-      { username: 'admin', password: hashedPassword },
+      { username: adminUser },
+      { username: adminUser, password: hashedPassword },
       { upsert: true, returnDocument: 'after' }
     );
-    console.log('🔐 Admin user created/verified in MongoDB (admin / suvidha_admin_2026)');
+    
+    // Clean log with no sensitive credentials
+    console.log('🔐 System Security Framework: Admin credentials initialized and active.');
 
   } catch (err) {
     console.error('Error seeding database:', err.message);
@@ -81,15 +84,16 @@ async function seedDatabase() {
 app.post('/api/auth/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username: username || 'admin' });
+    const targetUser = username || process.env.ADMIN_USERNAME || 'admin';
     
+    const user = await User.findOne({ username: targetUser });
     if (!user) {
-      return res.status(401).json({ message: "Invalid Admin Credentials" });
+      return res.status(401).json({ message: "Invalid Credentials" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ message: "Invalid Admin Credentials" });
+      return res.status(401).json({ message: "Invalid Credentials" });
     }
 
     res.status(200).json({ success: true, message: "Authentication Successful" });

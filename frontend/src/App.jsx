@@ -24,6 +24,103 @@ const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.steels
 const WEB3FORMS_ACCESS_KEY = "d43e94c8-302b-457a-9807-b38c564c454d";
 
 export default function App() {
+  // Check if current path is /privacy-policy
+  if (typeof window !== 'undefined' && window.location.pathname === '/privacy-policy') {
+    return (
+      <div className="min-h-screen bg-[#F1F5F9] text-[#263238] font-poppins antialiased">
+        <header className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+          <a href="/" className="flex items-center">
+            <img src={websiteLogo} alt="Steel Suvidha" className="h-14 sm:h-16 w-auto object-contain max-h-16" />
+          </a>
+          <a 
+            href="/" 
+            className="text-xs font-bold text-slate-600 hover:text-[#E23744] transition-colors"
+          >
+            ← Back to Main Site
+          </a>
+        </header>
+
+        <main className="max-w-4xl mx-auto px-6 py-12">
+          <div className="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+            <div className="border-b border-slate-100 pb-4">
+              <h1 className="text-2xl sm:text-3xl font-bold font-lora text-slate-900">
+                Privacy Policy for Steel Suvidha
+              </h1>
+              <p className="text-xs text-slate-400 mt-1">Last updated: September 2026</p>
+            </div>
+
+            <p className="text-sm text-slate-600 leading-relaxed">
+              Steel Suvidha ("we", "our", or "us") operates the Steel Suvidha mobile application. This page informs users regarding our policies with the collection, use, and disclosure of Personal Information for anyone using our service.
+            </p>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">1. Information Collection and Use</h2>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                For a better experience while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to:
+              </p>
+              <ul className="list-disc list-inside text-sm text-slate-600 space-y-1 pl-2">
+                <li>Name</li>
+                <li>Mobile Phone Number</li>
+                <li>Delivery / Yard Location details</li>
+                <li>Order and transaction information</li>
+              </ul>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                The information that we request will be retained by us and used as described in this privacy policy.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">2. Authentication and Security</h2>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                We use industry-standard practices, including OTP verification and secure HTTPS encryption, to protect user accounts and data during transit and storage.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">3. Third-Party Services</h2>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                The app may employ third-party services (such as Firebase Cloud Messaging for notifications) that may collect information used to identify your device.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">4. Account & Data Deletion</h2>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Users have full control over their account data.
+              </p>
+              <ul className="list-disc list-inside text-sm text-slate-600 space-y-1.5 pl-2 leading-relaxed">
+                <li>
+                  <strong className="text-slate-800">In-App Deletion:</strong> Users can delete their account and associated profile data directly within the mobile application by navigating to Profile / Settings &gt; Delete Account. Upon confirmation, personal profile details and active sessions are permanently erased.
+                </li>
+                <li>
+                  <strong className="text-slate-800">Web / Email Request:</strong> Users can also request account and data deletion at any time by emailing <a href="mailto:manage.steelsuvidha@gmail.com" className="text-[#2F8DC7] underline">manage.steelsuvidha@gmail.com</a> with their registered mobile number. Requests are processed within 30 days.
+                </li>
+                <li>
+                  <strong className="text-slate-800">Data Retention:</strong> Completed transaction, tax, and order fulfillment records may be retained as required under applicable Indian commercial laws and financial regulations.
+                </li>
+              </ul>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-base font-bold text-slate-900">5. Contact Us</h2>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at:
+              </p>
+              <div className="text-xs bg-slate-50 p-4 rounded-xl border border-slate-200 text-slate-700 space-y-1">
+                <p><strong>Email:</strong> manage.steelsuvidha@gmail.com</p>
+                <p><strong>Location:</strong> Bihar Sharif, Bihar, India</p>
+              </div>
+            </section>
+          </div>
+        </main>
+
+        <footer className="py-6 text-center text-xs text-slate-400 border-t border-slate-200">
+          © 2026 Steel Suvidha. All rights reserved.
+        </footer>
+      </div>
+    );
+  }
+
   const [blogs, setBlogs] = useState([]);
   const [videos, setVideos] = useState([]);
   const [currentBookPage, setCurrentBookPage] = useState(0);
@@ -1173,13 +1270,17 @@ export default function App() {
               <a href="https://pixelnode-agency.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-[#2F8DC7] font-bold underline underline-offset-4 hover:text-white transition-colors cursor-pointer">
                 Pixelnode Agency
               </a>
+              {" "}•{" "}
+              <a href="/privacy-policy" className="text-slate-400 underline underline-offset-4 hover:text-white transition-colors">
+                Privacy Policy
+              </a>
             </p>
           </div>
           <div className="flex flex-col items-center md:items-end gap-2">
             <span className="text-[10px] text-slate-500 font-mono font-bold uppercase tracking-wider">OFFICIAL SYSTEM PLATFORM</span>
             <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex bg-slate-900 border border-slate-700 hover:border-slate-500 rounded-lg px-4 py-2 items-center gap-3 transition-colors shadow-lg group">
               <svg className="w-5 h-5 text-slate-300 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3.609 2.083c-.157.172-.25.438-.25.772v18.289c0 .334.093.6.25.772l.061.056 10.334-10.334v-.276L3.67 2.027l-.061.056zm14.316 10.158l3.66-2.09c1.026-.586 1.026-1.543 0-2.13l-3.66-2.09-3.957 3.957 3.957 3.953zm-4.321-4.317l-3.232-3.232L3.899 2.196c.237-.061.548-.035.918.175l11.517 6.577-2.962 2.962zm0 4.156l2.962 2.962L4.817 21.63c-.37.21-.681.236-.918.175l6.471-6.471 3.232-3.232z"/>
+                <path d="M3.609 2.083c-.157.172-.25.438-.25.772v18.289c0 .334.093.6.25.772l.061.056 10.334-10.334v-.276L3.67 2.027l-.061.056zm14.316 10.158l3.66-2.09c1.026-.586 1.026-1.543 0-2.13l-3.66-2.09-3.957 3.957 3.953zm-4.321-4.317l-3.232-3.232L3.899 2.196c.237-.061.548-.035.918.175l11.517 6.577-2.962 2.962zm0 4.156l2.962 2.962L4.817 21.63c-.37.21-.681.236-.918.175l6.471-6.471 3.232-3.232z"/>
               </svg>
               <div className="text-left">
                 <p className="text-[9px] text-slate-400 uppercase tracking-tight leading-none">GET IT ON</p>
