@@ -1280,7 +1280,7 @@ export default function App() {
             <span className="text-[10px] text-slate-500 font-mono font-bold uppercase tracking-wider">OFFICIAL SYSTEM PLATFORM</span>
             <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex bg-slate-900 border border-slate-700 hover:border-slate-500 rounded-lg px-4 py-2 items-center gap-3 transition-colors shadow-lg group">
               <svg className="w-5 h-5 text-slate-300 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M3.609 2.083c-.157.172-.25.438-.25.772v18.289c0 .334.093.6.25.772l.061.056 10.334-10.334v-.276L3.67 2.027l-.061.056zm14.316 10.158l3.66-2.09c1.026-.586 1.026-1.543 0-2.13l-3.66-2.09-3.957 3.957 3.953zm-4.321-4.317l-3.232-3.232L3.899 2.196c.237-.061.548-.035.918.175l11.517 6.577-2.962 2.962zm0 4.156l2.962 2.962L4.817 21.63c-.37.21-.681.236-.918.175l6.471-6.471 3.232-3.232z"/>
+              <path d="M3.609 2.083c-.157.172-.25.438-.25.772v18.289c0 .334.093.6.25.772l.061.056 10.334-10.334v-.276L3.67 2.027l-.061.056zm14.316 10.158l3.66-2.09c1.026-.586 1.026-1.543 0-2.13l-3.66-2.09-3.957 3.957 3.957 3.953zm-4.321 -4.317l-3.232 -3.232L3.899 2.196c.237-.061.548-.035.918.175l11.517 6.577-2.962 2.962zm0 4.156l2.962 2.962L4.817 21.63c-.37.21-.681.236-.918.175l6.471 -6.471 3.232 -3.232z"/>
               </svg>
               <div className="text-left">
                 <p className="text-[9px] text-slate-400 uppercase tracking-tight leading-none">GET IT ON</p>
