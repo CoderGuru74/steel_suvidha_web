@@ -6,7 +6,8 @@ exports.getAllBlogs = async (req, res) => {
     const blogs = await Blog.find().sort({ createdAt: -1 });
     res.status(200).json(blogs);
   } catch (error) {
-    res.status(500).json({ message: "Server Error fetching insights", error });
+    console.error("Error fetching blogs:", error);
+    res.status(500).json({ message: "Server Error fetching insights", error: error.message });
   }
 };
 
@@ -14,11 +15,28 @@ exports.getAllBlogs = async (req, res) => {
 exports.createBlog = async (req, res) => {
   try {
     const { title, category, author, content } = req.body;
-    const newBlog = new Blog({ title, category, author, content });
-    await newBlog.save();
+
+    if (!title || !author || !content) {
+      return res.status(400).json({ 
+        message: "Missing required fields: title, author, and content must be provided." 
+      });
+    }
+
+    const newBlog = await Blog.create({
+      title: title.trim(),
+      category: category ? category.trim() : 'Market Trends',
+      author: author.trim(),
+      content: content.trim()
+    });
+
+    console.log("✅ Blog created successfully:", newBlog._id);
     res.status(201).json(newBlog);
   } catch (error) {
-    res.status(400).json({ message: "Failed to create data record", error });
+    console.error("❌ Failed to create blog record in MongoDB:", error);
+    res.status(400).json({ 
+      message: "Failed to create data record", 
+      error: error.message || error 
+    });
   }
 };
 
@@ -28,6 +46,7 @@ exports.deleteBlog = async (req, res) => {
     await Blog.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: "Insight node successfully purged" });
   } catch (error) {
-    res.status(400).json({ message: "Deletion mapping execution failed", error });
+    console.error("Error deleting blog:", error);
+    res.status(400).json({ message: "Deletion mapping execution failed", error: error.message });
   }
 };
